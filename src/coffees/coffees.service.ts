@@ -27,14 +27,15 @@ export class CoffeesService {
 
     create(createCoffeeDto: any) {
         this.coffees.push(createCoffeeDto)
+        return createCoffeeDto;
     }
 
     update(id: string, createCoffeeDto: any) {
-        // const existingCoffee = this.fineOne(id);
-        // if (existingCoffee) {
-        //     //update the existing entity
-        //     console.log('update succes');
-        // }
+        const existingCoffee = this.fineOne(id);
+        if (existingCoffee) {
+            //update the existing entity
+            console.log('update succes');
+        }
     }
 
     remove(id: string) {

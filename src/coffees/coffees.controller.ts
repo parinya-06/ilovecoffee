@@ -24,20 +24,22 @@ export class CoffeesController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id') id: number) {
         // return `This action returns #${id} coffees`;
-        return this.coffeesService.fineOne(id);
+        console.log(typeof id);
+        return this.coffeesService.fineOne('' + id);
     }
 
     @Post()
     // @HttpCode(HttpStatus.GONE)
     create(@Body() createCoffeeDto: CreateCoffeeDto) {
         // return body;
+        console.log(createCoffeeDto instanceof CreateCoffeeDto);
         return this.coffeesService.create(createCoffeeDto);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateCoffeeDto:UpdateCoffeeDto) {
+    update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
         // return `This action update #${id} coffees`;
         return this.coffeesService.update(id, updateCoffeeDto)
     }
