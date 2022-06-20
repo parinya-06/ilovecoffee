@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post
 import { response } from 'express';
 import { send } from 'process';
 import { CoffeesService } from './coffees.service';
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -29,15 +31,15 @@ export class CoffeesController {
 
     @Post()
     // @HttpCode(HttpStatus.GONE)
-    create(@Body() body) {
+    create(@Body() createCoffeeDto: CreateCoffeeDto) {
         // return body;
-        return this.coffeesService.create(body);
+        return this.coffeesService.create(createCoffeeDto);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() body) {
+    update(@Param('id') id: string, @Body() updateCoffeeDto:UpdateCoffeeDto) {
         // return `This action update #${id} coffees`;
-        return this.coffeesService.update(id, body)
+        return this.coffeesService.update(id, updateCoffeeDto)
     }
 
     @Delete(':id')
