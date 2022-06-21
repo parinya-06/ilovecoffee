@@ -41,6 +41,9 @@ export class CoffeesController {
     @Patch(':id')
     update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
         // return `This action update #${id} coffees`;
+        console.log('update','=',id);
+        console.log('updateCoffeeDto','=',updateCoffeeDto);
+        
         return this.coffeesService.update(id, updateCoffeeDto)
     }
 
