@@ -5,13 +5,15 @@ import {
     Get,
     HttpCode,
     HttpStatus,
+    Inject,
     Param,
     Patch,
     Post,
     Query,
     Res,
 } from '@nestjs/common';
-import { response } from 'express';
+import { REQUEST } from '@nestjs/core';
+import { Request, response } from 'express';
 import { send } from 'process';
 import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
 import { CoffeesService } from './coffees.service';
@@ -20,7 +22,12 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
-    constructor(private readonly coffeesService: CoffeesService) { }
+    constructor(
+        private readonly coffeesService: CoffeesService,
+        @Inject(REQUEST) private readonly request: Request,
+    ) {
+        console.log('CoffeesService created');
+    }
     // @Get()
     // findAll(@Res() response) {
     //     // return 'This action returns all coffees';

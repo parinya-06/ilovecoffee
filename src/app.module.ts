@@ -19,7 +19,7 @@ import { DatabaseModule } from './database/database.module';
       synchronize: true,
     }),
     CoffeeRatingModule,
-    DatabaseModule,
+    // DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
