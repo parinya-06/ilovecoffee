@@ -33,9 +33,10 @@ export class CoffeesController {
     // @SetMetadata('isPublic', true)
     @Public()
     @Get()
-    findAll(@Query() paginationQuery: PaginationQueryDto) {
+    async findAll(@Query() paginationQuery: PaginationQueryDto) {
         // const { name, value } = paginationQuery
         // return `return 'This action returns all coffees, name:${name} value:${value}`
+        await new Promise(resolve => setTimeout(resolve, 5000));
         return this.coffeesService.findAll(paginationQuery);
     }
 
