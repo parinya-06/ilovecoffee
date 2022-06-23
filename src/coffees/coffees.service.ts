@@ -36,9 +36,9 @@ export class CoffeesService {
     // const databaseHost = this.configService.get<string>('database.host', 'localhost',)
     // console.log(databaseHost);
     // const coffeesConfig = this.configService.get('coffees.foo');
-    console.log(coffeesConfiguration.foo);
+    // console.log(coffeesConfiguration.foo);
     // console.log('coffeeBrands', '=', coffeeBrands);
-    console.log('CoffeesService instantiated');
+    // console.log('CoffeesService instantiated');
   }
 
   findAll(paginationQuery: PaginationQueryDto) {
