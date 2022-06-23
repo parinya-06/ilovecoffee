@@ -19,6 +19,7 @@ import {
 import { REQUEST } from '@nestjs/core';
 import { Request, response } from 'express';
 import { send } from 'process';
+import { Protocol } from 'src/common/decorators/protocol.decorator';
 import { Public } from 'src/common/decorators/public.decorator';
 import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
 import { CoffeesService } from './coffees.service';
@@ -34,10 +35,11 @@ export class CoffeesController {
     // @SetMetadata('isPublic', true)
     @Public()
     @Get()
-    async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    async findAll(@Protocol('https') protocol: string, @Query() paginationQuery: PaginationQueryDto) {
         // const { name, value } = paginationQuery
         // return `return 'This action returns all coffees, name:${name} value:${value}`
         // await new Promise(resolve => setTimeout(resolve, 5000));
+        console.log(protocol);
         return this.coffeesService.findAll(paginationQuery);
     }
 
