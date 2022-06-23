@@ -7,6 +7,7 @@ import {
     HttpStatus,
     Inject,
     Param,
+    ParseIntPipe,
     Patch,
     Post,
     Query,
@@ -36,12 +37,13 @@ export class CoffeesController {
     async findAll(@Query() paginationQuery: PaginationQueryDto) {
         // const { name, value } = paginationQuery
         // return `return 'This action returns all coffees, name:${name} value:${value}`
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        // await new Promise(resolve => setTimeout(resolve, 5000));
         return this.coffeesService.findAll(paginationQuery);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        console.log(id);
         return this.coffeesService.fineOne(id);
     }
 
