@@ -11,6 +11,8 @@ import {
     Post,
     Query,
     Res,
+    UsePipes,
+    ValidationPipe,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Request, response } from 'express';
@@ -20,22 +22,12 @@ import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
+// @UsePipes(ValidationPipe)
 @Controller('coffees')
 export class CoffeesController {
-    constructor(
-        private readonly coffeesService: CoffeesService,
-        @Inject(REQUEST) private readonly request: Request,
-    ) {
-        console.log('CoffeesService created');
-    }
-    // @Get()
-    // findAll(@Res() response) {
-    //     // return 'This action returns all coffees';
-    //     response.status(200).send('This action returns all coffees')
-    // }
+    constructor(private readonly coffeesService: CoffeesService) { }
 
-    //ค้นหา
-
+    // @UsePipes(ValidationPipe)
     @Get()
     findAll(@Query() paginationQuery: PaginationQueryDto) {
         // const { name, value } = paginationQuery
@@ -57,7 +49,8 @@ export class CoffeesController {
     }
 
     @Patch(':id')
-    update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    // update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    update(@Param('id') id: number, @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto) {
         // return `This action update #${id} coffees`;
         return this.coffeesService.update(id, updateCoffeeDto);
     }

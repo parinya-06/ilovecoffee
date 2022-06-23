@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config'
 import * as Joi from '@hapi/joi';
 import appConfig from './config/app.config';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -23,18 +24,9 @@ import appConfig from './config/app.config';
         synchronize: true,
       })
     }),
-    ConfigModule.forRoot({
-      // envFilePath: '.env',
-      // ignoreEnvFile: true,
-      // validationSchema: Joi.object({
-      //   DATABASE_HOST: Joi.required(),
-      //   DATABASE_PORT: Joi.number().default(5432),
-      // })
-      load: [appConfig],
-    }),
+    ConfigModule.forRoot(),
     CoffeesModule,
     CoffeeRatingModule,
-    // DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
