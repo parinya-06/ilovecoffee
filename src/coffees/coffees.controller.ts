@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { ApiTags } from '@nestjs/swagger';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeesController {
     constructor(private readonly coffeesService: CoffeesService) { }
@@ -17,10 +19,10 @@ export class CoffeesController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
+    findOne(@Param('id') id: string) {
         // return `This action returns #${id} coffees`;
         console.log(typeof id);
-        return this.coffeesService.fineOne('' + id);
+        return this.coffeesService.fineOne(id);
     }
 
     @Post()
