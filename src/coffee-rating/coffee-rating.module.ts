@@ -4,7 +4,7 @@ import { DatabaseModule } from 'src/database/database.module';
 import { CoffeeRatingService } from './coffee-rating.service';
 
 @Module({
-  imports:[CoffeesModule],
+  imports: [CoffeesModule],
   // imports: [
   //   DatabaseModule.register(
   //     {
@@ -15,6 +15,6 @@ import { CoffeeRatingService } from './coffee-rating.service';
   //     }),
   //   CoffeesModule,
   // ],
-  providers: [CoffeeRatingService]
+  providers: [CoffeeRatingService],
 })
-export class CoffeeRatingModule { }
+export class CoffeeRatingModule {}

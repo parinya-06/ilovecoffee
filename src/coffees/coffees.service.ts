@@ -11,7 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination.dto';
 import { Event } from 'src/events/entities/event.entity';
 import { Repository, Connection } from 'typeorm';
-import { COFFEE_BRANDS } from './coffees.constants';
+// import { COFFEE_BRANDS } from './coffees.constants';
 import coffeesConfig from './config/coffees.config';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -28,8 +28,7 @@ export class CoffeesService {
     private readonly connection: Connection,
     private readonly configService: ConfigService,
     @Inject(coffeesConfig.KEY)
-    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>,
-    // @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>, // @Inject(COFFEE_BRANDS) coffeeBrands: string[],
   ) {
     // const databaseHost = this.configService.get<string>('DATABASE_HOST')
     // console.log(databaseHost);
@@ -43,6 +42,8 @@ export class CoffeesService {
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
+    // const port = this.configService.get('port');
+    // console.log(port);
     return this.coffeeRepository.find({
       relations: ['flavors'],
       skip: offset,

@@ -1,16 +1,16 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpCode,
-    HttpStatus,
-    Inject,
-    Param,
-    Patch,
-    Post,
-    Query,
-    Res,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Res,
 } from '@nestjs/common';
 import { REQUEST } from '@nestjs/core';
 import { Request, response } from 'express';
@@ -22,49 +22,49 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
-    constructor(
-        private readonly coffeesService: CoffeesService,
-        @Inject(REQUEST) private readonly request: Request,
-    ) {
-        console.log('CoffeesService created');
-    }
-    // @Get()
-    // findAll(@Res() response) {
-    //     // return 'This action returns all coffees';
-    //     response.status(200).send('This action returns all coffees')
-    // }
+  constructor(
+    private readonly coffeesService: CoffeesService,
+    @Inject(REQUEST) private readonly request: Request,
+  ) {
+    console.log('CoffeesService created');
+  }
+  // @Get()
+  // findAll(@Res() response) {
+  //     // return 'This action returns all coffees';
+  //     response.status(200).send('This action returns all coffees')
+  // }
 
-    //ค้นหา
+  //ค้นหา
 
-    @Get()
-    findAll(@Query() paginationQuery: PaginationQueryDto) {
-        // const { name, value } = paginationQuery
-        // return `return 'This action returns all coffees, name:${name} value:${value}`
-        return this.coffeesService.findAll(paginationQuery);
-    }
+  @Get()
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    // const { name, value } = paginationQuery
+    // return `return 'This action returns all coffees, name:${name} value:${value}`
+    return this.coffeesService.findAll(paginationQuery);
+  }
 
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.coffeesService.fineOne(id);
-    }
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.coffeesService.fineOne(id);
+  }
 
-    @Post()
-    // @HttpCode(HttpStatus.GONE)
-    create(@Body() createCoffeeDto: CreateCoffeeDto) {
-        // return body;
-        console.log(createCoffeeDto instanceof CreateCoffeeDto);
-        return this.coffeesService.create(createCoffeeDto);
-    }
+  @Post()
+  // @HttpCode(HttpStatus.GONE)
+  create(@Body() createCoffeeDto: CreateCoffeeDto) {
+    // return body;
+    console.log(createCoffeeDto instanceof CreateCoffeeDto);
+    return this.coffeesService.create(createCoffeeDto);
+  }
 
-    @Patch(':id')
-    update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
-        // return `This action update #${id} coffees`;
-        return this.coffeesService.update(id, updateCoffeeDto);
-    }
+  @Patch(':id')
+  update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    // return `This action update #${id} coffees`;
+    return this.coffeesService.update(id, updateCoffeeDto);
+  }
 
-    @Delete(':id')
-    remove(@Param('id') id: number) {
-        // return `This action remove #${id} coffees`;
-        return this.coffeesService.remove(id);
-    }
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    // return `This action remove #${id} coffees`;
+    return this.coffeesService.remove(id);
+  }
 }

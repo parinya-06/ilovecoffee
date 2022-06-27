@@ -2,35 +2,40 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeeRatingModule } from './coffee-rating/coffee-rating.module';
-import { DatabaseModule } from './database/database.module';
-import { ConfigModule } from '@nestjs/config'
-import * as Joi from '@hapi/joi';
+// import { DatabaseModule } from './database/database.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+// import * as Joi from '@hapi/joi';
 import appConfig from './config/app.config';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'postgres',
-        host: process.env.DATABASE_HOST,
-        port: +process.env.DATABASE_PORT,
-        username: process.env.DATABASE_USER,
-        password: process.env.DATABASE_PASSWORD,
-        database: process.env.DATABASE_NAME,
-        autoLoadEntities: true,
-        synchronize: true,
-      })
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const dbConfig: {
+          host: string;
+          port: number;
+          user: string;
+          password: string;
+          name: string;
+        } = configService.get('database');
+        return {
+          type: 'postgres',
+          host: dbConfig.host,
+          port: dbConfig.port,
+          username: dbConfig.user,
+          password: dbConfig.password,
+          database: dbConfig.name,
+          autoLoadEntities: true,
+          synchronize: true,
+        };
+      },
     }),
     ConfigModule.forRoot({
-      // envFilePath: '.env',
-      // ignoreEnvFile: true,
-      // validationSchema: Joi.object({
-      //   DATABASE_HOST: Joi.required(),
-      //   DATABASE_PORT: Joi.number().default(5432),
-      // })
       load: [appConfig],
+      isGlobal: true,
     }),
     CoffeesModule,
     CoffeeRatingModule,
@@ -39,4 +44,4 @@ import appConfig from './config/app.config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
